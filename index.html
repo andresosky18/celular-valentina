@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>El Celular de Valentina — Huellas en la Red</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Filtro SVG sutil para darle trazo irregular hand-drawn a los iconos -->
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <filter id="sketchy" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </defs>
+    </svg>
+
+    <div class="phone-hardware">
+        <div class="comic-hatch top-left">\\</div>
+        <div class="comic-hatch bottom-right">//</div>
+        <div class="phone-speaker"></div>
+        <div class="phone-camera"></div>
+        
+        <div class="screen-wrapper">
+            
+            <!-- PANTALLA DE BLOQUEO -->
+            <div id="lock-screen" class="screen active">
+                <div class="status-bar">
+                    <span class="carrier">LTE · HUELLAS</span>
+                    <span class="battery">
+                        <svg class="inline-svg" viewBox="0 0 28 16"><rect x="1" y="2" width="22" height="12" rx="2" fill="#f7f3e8" stroke="#181516" stroke-width="2.2"/><rect x="3" y="4" width="5" height="8" fill="#c94a4a"/><path d="M24 5v6" stroke="#181516" stroke-width="2.5" stroke-linecap="round"/></svg>
+                        12%
+                    </span>
+                </div>
+                
+                <div class="lock-header">
+                    <div class="time-large">11:47</div>
+                    <div class="date">p. m. · Última conexión</div>
+                </div>
+
+                <!-- Vista previa de notificaciones urgentes en pantalla de bloqueo -->
+                <div class="lock-notifs">
+                    <div class="lock-notif-card">
+                        <strong>@cuenta_falsa</strong> te mencionó en una publicación.
+                    </div>
+                    <div class="lock-notif-card danger-lock">
+                        <strong>Número desconocido:</strong> ¿Todavía crees que fue buena idea hablar?
+                    </div>
+                    <div class="lock-notif-card">
+                        <strong>Mamá:</strong> ¿Dónde estás? (2 llamadas perdidas)
+                    </div>
+                </div>
+                
+                <div class="swipe-hint" onclick="unlockPhone()">
+                    Toca aquí para desbloquear el celular de Valentina
+                </div>
+            </div>
+
+            <!-- PANTALLA DE INICIO (HOME) -->
+            <div id="home-screen" class="screen hidden">
+                <div class="status-bar dark-text">
+                    <span class="carrier">LTE</span>
+                    <span class="battery">
+                        <svg class="inline-svg" viewBox="0 0 28 16"><rect x="1" y="2" width="22" height="12" rx="2" fill="#f7f3e8" stroke="#181516" stroke-width="2.2"/><rect x="3" y="4" width="5" height="8" fill="#c94a4a"/><path d="M24 5v6" stroke="#181516" stroke-width="2.5" stroke-linecap="round"/></svg>
+                        12%
+                    </span>
+                </div>
+                
+                <div class="phone-owner">
+                    <h1>VALENTINA</h1>
+                    <div class="time-small">11:47 p. m.</div>
+                </div>
+
+                <!-- Barra de progreso del Expediente / Guía rápida -->
+                <div class="case-banner" onclick="openModal('guide-modal')">
+                    <div class="case-banner-left">
+                        <span class="case-tag">EXPEDIENTE V-021</span>
+                        <span id="evidence-counter">Evidencias: 0/7</span>
+                    </div>
+                    <span class="case-help-btn">¿Cómo investigar? ▸</span>
+                </div>
+                
+                <div class="app-grid main-grid">
+                    <!-- 1. MENSAJES -->
+                    <div class="app-icon" onclick="openApp('mensajes')">
+                        <div class="icon-box msg-bg">
+                            <svg class="comic-icon" viewBox="0 0 48 48">
+                                <path d="M8 12c0-3 3-5 7-5h18c4 0 7 2 7 5v15c0 3-3 5-7 5H21l-9 7v-7h-1c-2 0-3-2-3-5V12z" fill="#fdfbf6" stroke="#181516" stroke-width="2.8" stroke-linejoin="round"/>
+                                <path d="M15 17h18M15 23h12" stroke="#181516" stroke-width="2.6" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span>Mensajes</span>
+                    </div>
+
+                    <!-- 2. GALERÍA -->
+                    <div class="app-icon" onclick="openApp('galeria')">
+                        <div class="icon-box gal-bg">
+                            <svg class="comic-icon" viewBox="0 0 48 48">
+                                <rect x="7" y="10" width="34" height="28" rx="4" fill="#fdfbf6" stroke="#181516" stroke-width="2.8"/>
+                                <circle cx="17" cy="19" r="3.5" fill="#eed6a7" stroke="#181516" stroke-width="2.4"/>
+                                <path d="M9 34l9-9 7 6 7-8 8 11" fill="#d6dfd4" stroke="#181516" stroke-width="2.6" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <span>Galería</span>
+                    </div>
+
+                    <!-- 3. AUDIOS -->
+                    <div class="app-icon" onclick="openApp('audios')">
+                        <div class="icon-box aud-bg">
+                            <svg class="comic-icon" viewBox="0 0 48 48">
+                                <rect x="18" y="8" width="12" height="20" rx="6" fill="#fdfbf6" stroke="#181516" stroke-width="2.8"/>
+                                <path d="M12 22c0 7 5 12 12 12s12-5 12-12M24 34v7M17 41h14" fill="none" stroke="#181516" stroke-width="2.8" stroke-linecap="round"/>
+                                <path d="M21 14h6M21 19h6" stroke="#181516" stroke-width="2.2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span>Audios</span>
+                    </div>
+
+                    <!-- 4. NOTIFICACIONES -->
+                    <div class="app-icon" onclick="openApp('notificaciones')">
+                        <div class="icon-box not-bg">
+                            <span class="notif-badge">7</span>
+                            <svg class="comic-icon" viewBox="0 0 48 48">
+                                <path d="M24 9c-7 0-11 5-11 12v8l-4 4v2h30v-2l-4-4v-8c0-7-4-12-11-12z" fill="#fdfbf6" stroke="#181516" stroke-width="2.8" stroke-linejoin="round"/>
+                                <path d="M20 35c0 2.5 1.8 4 4 4s4-1.5 4-4" fill="none" stroke="#181516" stroke-width="2.8" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span>Notificaciones</span>
+                    </div>
+
+                    <!-- 5. ELIMINADOS -->
+                    <div class="app-icon" onclick="openApp('eliminados')">
+                        <div class="icon-box trash-bg">
+                            <svg class="comic-icon" viewBox="0 0 48 48">
+                                <path d="M13 15h22l-2 24H15L13 15z" fill="#fdfbf6" stroke="#181516" stroke-width="2.8" stroke-linejoin="round"/>
+                                <path d="M10 15h28M19 15v-4h10v4M20 21v12M28 21v12" fill="none" stroke="#181516" stroke-width="2.6" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span>Eliminados</span>
+                    </div>
+
+                    <!-- 6. ARCHIVOS -->
+                    <div class="app-icon" onclick="openApp('archivos')">
+                        <div class="icon-box file-bg">
+                            <svg class="comic-icon" viewBox="0 0 48 48">
+                                <path d="M7 14c0-2 1.5-3 3.5-3h9l4 4h14c2 0 3.5 1.5 3.5 3.5V36c0 2-1.5 3.5-3.5 3.5h-27C8.5 39.5 7 38 7 36V14z" fill="#eed6a7" stroke="#181516" stroke-width="2.8" stroke-linejoin="round"/>
+                                <path d="M7 21h34" stroke="#181516" stroke-width="2.5"/>
+                            </svg>
+                        </div>
+                        <span>Archivos</span>
+                    </div>
+
+                    <!-- 7. LLAMADAS -->
+                    <div class="app-icon" onclick="openApp('llamadas')">
+                        <div class="icon-box call-bg">
+                            <svg class="comic-icon" viewBox="0 0 48 48">
+                                <path d="M14 10c2-2 5-2 7 1l3 5c1 2 0 4-1 5l-2 2c2 4 5 7 9 9l2-2c1-1 3-2 5-1l5 3c3 2 3 5 1 7-3 3-8 4-14 1-8-4-15-11-19-19-3-6-2-11 1-14z" fill="#fdfbf6" stroke="#181516" stroke-width="2.8" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <span>Llamadas</span>
+                    </div>
+
+                    <!-- 8. GUÍA RÁPIDA / PISTAS -->
+                    <div class="app-icon" onclick="openModal('guide-modal')">
+                        <div class="icon-box guide-bg">
+                            <svg class="comic-icon" viewBox="0 0 48 48">
+                                <circle cx="21" cy="21" r="10" fill="#fdfbf6" stroke="#181516" stroke-width="2.8"/>
+                                <path d="M28 28l10 10" stroke="#181516" stroke-width="3.5" stroke-linecap="round"/>
+                                <path d="M18 18c1-2 4-2 5 0" fill="none" stroke="#181516" stroke-width="2.2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span>Guía / Caso</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 1. APP DE MENSAJES -->
+            <!-- ===================== -->
+            <div id="app-mensajes" class="screen hidden app-view">
+                <div class="status-bar dark-text">
+                    <span class="time-small">11:47 p. m.</span>
+                    <span class="battery">12%</span>
+                </div>
+                <div class="app-header">
+                    <button onclick="goHome()">◀ Inicio</button>
+                    <h2>Mensajes</h2>
+                </div>
+                <div class="chat-list">
+                    <div class="chat-item" onclick="openChat('mama')">
+                        <div class="chat-avatar mama-avatar">M</div>
+                        <div class="chat-preview">
+                            <div class="chat-name">Mamá (Laura)</div>
+                            <span>Cuando llegue hablamos.</span>
+                        </div>
+                    </div>
+                    <div class="chat-item" onclick="openChat('companera')">
+                        <div class="chat-avatar comp-avatar">C</div>
+                        <div class="chat-preview">
+                            <div class="chat-name">Compañera</div>
+                            <span>Tengo miedo de que esto empeore.</span>
+                        </div>
+                    </div>
+                    <div class="chat-item urgent-chat" onclick="openChat('desconocido')">
+                        <div class="chat-avatar desc-avatar">?</div>
+                        <div class="chat-preview">
+                            <div class="chat-name">Número desconocido</div>
+                            <span class="unread-text">Esto apenas comienza.</span>
+                        </div>
+                        <div class="lock-icon" id="stalker-lock-icon">
+                            <svg class="inline-svg-lg" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="#eed6a7" stroke="#181516" stroke-width="2"/><path d="M8 11V7a4 4 0 018 0v4" fill="none" stroke="#181516" stroke-width="2"/></svg>
+                        </div>
+                    </div>
+                    <div class="chat-item" onclick="openChat('representante')">
+                        <div class="chat-avatar rep-avatar">R</div>
+                        <div class="chat-preview">
+                            <div class="chat-name">Representante del colegio</div>
+                            <span>No borres ningún mensaje.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHAT: MAMÁ -->
+            <div id="chat-mama" class="screen hidden app-view">
+                <div class="status-bar dark-text"><span class="time-small">11:47 p. m.</span><span class="battery">12%</span></div>
+                <div class="app-header"><button onclick="goBack('app-mensajes')">◀ Atrás</button><h2>Mamá (Laura)</h2></div>
+                <div class="messages-container">
+                    <div class="msg received">¿Ya llegaste al colegio?</div>
+                    <div class="msg sent">Sí.</div>
+                    <div class="msg received">¿Todo bien?</div>
+                    <div class="msg sent">Sí mamá ❤️</div>
+                    <div class="chat-date">Más tarde</div>
+                    <div class="msg sent">Mamá, necesito hablar contigo.</div>
+                    <div class="msg received">Cuando llegue hablamos.</div>
+                </div>
+            </div>
+
+            <!-- CHAT: COMPAÑERA -->
+            <div id="chat-companera" class="screen hidden app-view">
+                <div class="status-bar dark-text"><span class="time-small">11:47 p. m.</span><span class="battery">12%</span></div>
+                <div class="app-header"><button onclick="goBack('app-mensajes')">◀ Atrás</button><h2>Compañera</h2></div>
+                <div class="messages-container">
+                    <div class="msg received">Gracias por ayudarme.</div>
+                    <div class="msg sent">No tienes que agradecerme.</div>
+                    <div class="msg received">Tengo miedo de que esto empeore.</div>
+                    <div class="msg sent">No estás sola.</div>
+                </div>
+            </div>
+            
+            <!-- CHAT: REPRESENTANTE -->
+            <div id="chat-representante" class="screen hidden app-view">
+                <div class="status-bar dark-text"><span class="time-small">11:47 p. m.</span><span class="battery">12%</span></div>
+                <div class="app-header"><button onclick="goBack('app-mensajes')">◀ Atrás</button><h2>Representante</h2></div>
+                <div class="messages-container">
+                    <div class="msg received">Recuerda conservar las capturas.</div>
+                    <div class="msg sent">Las estoy guardando todas.</div>
+                    <div class="msg received">No borres ningún mensaje.</div>
+                    <div class="msg sent">Está bien.</div>
+                </div>
+            </div>
+
+            <!-- CHAT ACOSADOR (CON CONTRASEÑA) -->
+            <div id="chat-acosador" class="screen hidden app-view">
+                <div class="status-bar"><span class="time-small" style="color:#f7f3e8">11:47 p. m.</span><span class="battery" style="color:#f7f3e8">12%</span></div>
+                <div class="app-header dark-mode-header"><button onclick="goBack('app-mensajes')">◀ Atrás</button><h2>Número desconocido</h2></div>
+                <div class="messages-container scary-chat">
+                    <div class="msg received danger-msg">¿Te gusta meterte donde no te llaman?</div>
+                    <div class="msg sent">¿Quién eres?</div>
+                    <div class="msg received danger-msg">Ahora te toca a ti.</div>
+                    <div class="msg sent">Déjame en paz.</div>
+                    <div class="msg received danger-msg">Esto apenas comienza.</div>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 2. APP DE AUDIOS -->
+            <!-- ===================== -->
+            <div id="app-audios" class="screen hidden app-view">
+                <div class="status-bar dark-text">
+                    <span class="time-small">11:47 p. m.</span>
+                    <span class="battery">12%</span>
+                </div>
+                <div class="app-header">
+                    <button onclick="goHome()">◀ Inicio</button>
+                    <h2>Audios Guardados</h2>
+                </div>
+                <div class="audio-list">
+                    <div class="audio-item" onclick="toggleAudio('audio-0')">
+                        <div class="play-btn" id="btn-audio-0">▶</div>
+                        <div class="audio-info">
+                            <span class="audio-title">AUDIO 01 — "Mamá"</span>
+                            <span class="audio-duration">Valentina · "Yo solo quería ayudar..."</span>
+                        </div>
+                    </div>
+                    <div class="audio-item" onclick="toggleAudio('audio-1')">
+                        <div class="play-btn" id="btn-audio-1">▶</div>
+                        <div class="audio-info">
+                            <span class="audio-title">AUDIO 02 — "Tengo miedo"</span>
+                            <span class="audio-duration">Valentina · "No sé cómo manejar esto sola..."</span>
+                        </div>
+                    </div>
+                    <div class="audio-item" onclick="toggleAudio('audio-2')">
+                        <div class="play-btn" id="btn-audio-2">▶</div>
+                        <div class="audio-info">
+                            <span class="audio-title">AUDIO 03 — "Compañera"</span>
+                            <span class="audio-duration">Compañera · "Gracias por estar conmigo..."</span>
+                        </div>
+                    </div>
+                    <div class="audio-item important-audio" onclick="toggleAudio('audio-3')">
+                        <div class="play-btn" id="btn-audio-3">▶</div>
+                        <div class="audio-info">
+                            <span class="audio-title">AUDIO 04 — "Último audio"</span>
+                            <span class="audio-duration">Valentina · "Si alguien encuentra esto..."</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 3. APP DE NOTIFICACIONES -->
+            <!-- ===================== -->
+            <div id="app-notificaciones" class="screen hidden app-view">
+                <div class="status-bar dark-text"><span class="time-small">11:47 p. m.</span><span class="battery">12%</span></div>
+                <div class="app-header">
+                    <button onclick="goHome()">◀ Inicio</button>
+                    <h2>Notificaciones (7)</h2>
+                </div>
+                <div class="notifications-scroll">
+                    <div class="notif-row" onclick="openMediaViewer('img3')"><strong>1.</strong> @cuenta_falsa te mencionó.</div>
+                    <div class="notif-row" onclick="openMediaViewer('img5')"><strong>2.</strong> Tu publicación recibió 18 comentarios.</div>
+                    <div class="notif-row" onclick="openMediaViewer('vid1')"><strong>3.</strong> 12 personas compartieron esta publicación.</div>
+                    <div class="notif-row" onclick="openMediaViewer('img4')"><strong>4.</strong> @cuenta_falsa publicó una nueva imagen.</div>
+                    <div class="notif-row alert-notif" onclick="openApp('mensajes')"><strong>5.</strong> Nuevo mensaje de número desconocido.</div>
+                    <div class="notif-row" onclick="openApp('llamadas')"><strong>6.</strong> Laura (Mamá) te llamó.</div>
+                    <div class="notif-row special-notif" onclick="openEvidencia()">
+                        ★ 7. Última notificación encontrada (Toca para abrir)
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 4. APP DE ELIMINADOS -->
+            <!-- ===================== -->
+            <div id="app-eliminados" class="screen hidden app-view dark-app">
+                <div class="status-bar"><span class="time-small">11:47 p. m.</span><span class="battery">12%</span></div>
+                <div class="app-header dark-mode-header">
+                    <button onclick="goHome()">◀ Inicio</button>
+                    <h2>PAPELERA</h2>
+                </div>
+                <div class="trash-header">3 elementos recuperables (Toca para restaurar)</div>
+                <div class="trash-list">
+                    <div class="trash-item" onclick="confirmRecover(this, 'Mensaje eliminado: “Mamá, necesito ayuda.”')">
+                        <div class="trash-icon">
+                            <svg class="inline-svg-lg" viewBox="0 0 24 24"><path d="M4 6h16v10H8l-4 4V6z" fill="#fdfbf6" stroke="#181516" stroke-width="2"/></svg>
+                        </div>
+                        <div class="trash-info">
+                            <strong>Mensaje eliminado</strong>
+                            <span>"Mamá, necesito ayuda."</span>
+                        </div>
+                    </div>
+                    <div class="trash-item" onclick="confirmRecover(this, 'Borrador eliminado: “No sé cómo decirle a alguien que tengo miedo…”')">
+                        <div class="trash-icon">
+                            <svg class="inline-svg-lg" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2" fill="#fdfbf6" stroke="#181516" stroke-width="2"/><path d="M8 9h8M8 13h6" stroke="#181516" stroke-width="2"/></svg>
+                        </div>
+                        <div class="trash-info">
+                            <strong>Borrador eliminado</strong>
+                            <span>"No sé cómo decirle a alguien que tengo miedo…"</span>
+                        </div>
+                    </div>
+                    <div class="trash-item" onclick="confirmRecover(this, 'Captura eliminada: Una captura de la cuenta falsa (@cuenta_falsa).')">
+                        <div class="trash-icon">
+                            <svg class="inline-svg-lg" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2" fill="#fdfbf6" stroke="#181516" stroke-width="2"/><circle cx="9" cy="10" r="1.5" fill="#181516"/><path d="M5 17l5-5 4 3 5-6" fill="none" stroke="#181516" stroke-width="2"/></svg>
+                        </div>
+                        <div class="trash-info">
+                            <strong>Captura eliminada</strong>
+                            <span>Una captura de la cuenta falsa.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 5. APP DE GALERÍA (+ VIDEOS REALES) -->
+            <!-- ===================== -->
+            <div id="app-galeria" class="screen hidden app-view">
+                <div class="status-bar dark-text">
+                    <span class="time-small">11:47 p. m.</span>
+                    <span class="battery">12%</span>
+                </div>
+                <div class="app-header">
+                    <button onclick="goHome()">◀ Inicio</button>
+                    <h2>Galería (8 fotos · 3 videos)</h2>
+                </div>
+                <div class="gallery-scroll">
+                    <div class="section-label">IMÁGENES (8) — Toca para ampliar</div>
+                    <div class="gallery-grid">
+                        <div class="gallery-card" onclick="openMediaViewer('img1')">
+                            <div class="gallery-thumb"><img src="IMG_001.png" alt="IMG_001"></div>
+                            <span class="gallery-code">IMG_001</span>
+                            <small>Valentina y compañera</small>
+                        </div>
+                        <div class="gallery-card" onclick="openMediaViewer('img2')">
+                            <div class="gallery-thumb"><img src="IMG_002.png" alt="IMG_002"></div>
+                            <span class="gallery-code">IMG_002</span>
+                            <small>1ª pub. ofensiva</small>
+                        </div>
+                        <div class="gallery-card" onclick="openMediaViewer('img3')">
+                            <div class="gallery-thumb"><img src="IMG_003.png" alt="IMG_003"></div>
+                            <span class="gallery-code">IMG_003</span>
+                            <small>Cuenta falsa</small>
+                        </div>
+                        <div class="gallery-card" onclick="openMediaViewer('img4')">
+                            <div class="gallery-thumb"><img src="IMG_004.png" alt="IMG_004"></div>
+                            <span class="gallery-code">IMG_004</span>
+                            <small>Imagen manipulada</small>
+                        </div>
+                        <div class="gallery-card" onclick="openMediaViewer('img5')">
+                            <div class="gallery-thumb"><img src="IMG_005.png" alt="IMG_005"></div>
+                            <span class="gallery-code">IMG_005</span>
+                            <small>Comentarios (387)</small>
+                        </div>
+                        <div class="gallery-card" onclick="openMediaViewer('img6')">
+                            <div class="gallery-thumb"><img src="IMG_006.png" alt="IMG_006"></div>
+                            <span class="gallery-code">IMG_006</span>
+                            <small>Info privada familia</small>
+                        </div>
+                        <div class="gallery-card" onclick="openMediaViewer('img7')">
+                            <div class="gallery-thumb"><img src="IMG_007.png" alt="IMG_007"></div>
+                            <span class="gallery-code">IMG_007</span>
+                            <small>Cuaderno de Valentina</small>
+                        </div>
+                        <div class="gallery-card" onclick="openMediaViewer('img8')">
+                            <div class="gallery-thumb"><img src="IMG_008.png" alt="IMG_008"></div>
+                            <span class="gallery-code">IMG_008</span>
+                            <small>Evidencias organizadas</small>
+                        </div>
+                    </div>
+
+                    <div class="section-label">VIDEOS GUARDADOS (3) — Toca para reproducir</div>
+                    <div class="video-list">
+                        <div class="video-card" onclick="openMediaViewer('vid1')">
+                            <div class="video-icon">▶</div>
+                            <div class="video-meta">
+                                <strong>VIDEO 01 — Publicación falsa</strong>
+                                <span>"27 personas compartieron esta publicación."</span>
+                            </div>
+                        </div>
+                        <div class="video-card" onclick="openMediaViewer('vid2')">
+                            <div class="video-icon">▶</div>
+                            <div class="video-meta">
+                                <strong>VIDEO 02 — Historia de la cuenta falsa</strong>
+                                <span>"¿Ya conocen a Valentina?"</span>
+                            </div>
+                        </div>
+                        <div class="video-card urgent-video" onclick="openMediaViewer('vid3')">
+                            <div class="video-icon">▶</div>
+                            <div class="video-meta">
+                                <strong>VIDEO 03 — Cierre</strong>
+                                <span>"LAS HUELLAS PERMANECEN."</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 6. APP DE ARCHIVOS -->
+            <!-- ===================== -->
+            <div id="app-archivos" class="screen hidden app-view">
+                <div class="status-bar dark-text">
+                    <span class="time-small">11:47 p. m.</span>
+                    <span class="battery">12%</span>
+                </div>
+                <div class="app-header">
+                    <button onclick="goHome()">◀ Inicio</button>
+                    <h2>Archivos</h2>
+                </div>
+                <div class="files-container">
+                    <div class="folder-card" onclick="openApp('archivos-folder')">
+                        <div class="folder-icon">
+                            <svg class="inline-svg-lg" viewBox="0 0 32 32"><path d="M3 8h10l3 3h13v15H3V8z" fill="#fdfbf6" stroke="#181516" stroke-width="2.4" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="folder-info">
+                            <strong>NO_BORRAR</strong>
+                            <span>6 elementos · Última mod. 11:47 p. m.</span>
+                        </div>
+                        <div class="folder-arrow">▶</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBCARPETA: NO_BORRAR -->
+            <div id="app-archivos-folder" class="screen hidden app-view">
+                <div class="status-bar dark-text">
+                    <span class="time-small">11:47 p. m.</span>
+                    <span class="battery">12%</span>
+                </div>
+                <div class="app-header">
+                    <button onclick="goBack('app-archivos')">◀ Archivos</button>
+                    <h2>Carpeta: NO_BORRAR</h2>
+                </div>
+                <div class="files-container">
+                    <div class="file-row" onclick="openMediaViewer('img3')">
+                        <img src="IMG_003.png" class="file-mini-thumb" alt="evidencia_01">
+                        <div class="file-info">
+                            <strong>evidencia_01.jpg</strong>
+                            <span>Captura de la cuenta falsa.</span>
+                        </div>
+                    </div>
+                    <div class="file-row" onclick="openMediaViewer('img4')">
+                        <img src="IMG_004.png" class="file-mini-thumb" alt="evidencia_02">
+                        <div class="file-info">
+                            <strong>evidencia_02.jpg</strong>
+                            <span>Publicación manipulada.</span>
+                        </div>
+                    </div>
+                    <div class="file-row" onclick="openMediaViewer('img5')">
+                        <img src="IMG_005.png" class="file-mini-thumb" alt="evidencia_03">
+                        <div class="file-info">
+                            <strong>evidencia_03.jpg</strong>
+                            <span>Comentarios.</span>
+                        </div>
+                    </div>
+                    <div class="file-row" onclick="openMediaViewer('img6')">
+                        <img src="IMG_006.png" class="file-mini-thumb" alt="evidencia_04">
+                        <div class="file-info">
+                            <strong>evidencia_04.jpg</strong>
+                            <span>Información familiar.</span>
+                        </div>
+                    </div>
+                    <div class="file-row" onclick="openMediaViewer('cronologia')">
+                        <div class="file-doc-icon">PDF</div>
+                        <div class="file-info">
+                            <strong>cronologia.pdf</strong>
+                            <span>Día 1 a Día 5 (11:47 p. m.)</span>
+                        </div>
+                    </div>
+                    <div class="file-row star-file" onclick="openMediaViewer('evidencia_final')">
+                        <div class="file-doc-icon star-doc">TXT</div>
+                        <div class="file-info">
+                            <strong>Evidencia_final.txt</strong>
+                            <span>Pista final de Valentina</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 7. APP DE LLAMADAS -->
+            <!-- ===================== -->
+            <div id="app-llamadas" class="screen hidden app-view">
+                <div class="status-bar dark-text">
+                    <span class="time-small">11:47 p. m.</span>
+                    <span class="battery">12%</span>
+                </div>
+                <div class="app-header">
+                    <button onclick="goHome()">◀ Inicio</button>
+                    <h2>Registro de Llamadas</h2>
+                </div>
+                <div class="calls-list">
+                    <div class="call-row">
+                        <div class="call-time">6:42 p. m.</div>
+                        <div class="call-contact">Mamá</div>
+                        <div class="call-status status-in">↙ Entrante</div>
+                    </div>
+                    <div class="call-row">
+                        <div class="call-time">7:05 p. m.</div>
+                        <div class="call-contact">Representante colegio</div>
+                        <div class="call-status status-out">↗ Saliente</div>
+                    </div>
+                    <div class="call-row danger-call">
+                        <div class="call-time">10:31 p. m.</div>
+                        <div class="call-contact">Número desconocido</div>
+                        <div class="call-status status-in">↙ Entrante</div>
+                    </div>
+                    <div class="call-row missed-call">
+                        <div class="call-time">11:31 p. m.</div>
+                        <div class="call-contact">Mamá</div>
+                        <div class="call-status status-missed">✖ Perdida</div>
+                    </div>
+                    <div class="call-row missed-call">
+                        <div class="call-time">11:42 p. m.</div>
+                        <div class="call-contact">Mamá</div>
+                        <div class="call-status status-missed">✖ Perdida</div>
+                    </div>
+                    <div class="call-row final-activity">
+                        <div class="call-time">11:47 p. m.</div>
+                        <div class="call-contact">—</div>
+                        <div class="call-status status-trace">⚡ Última actividad</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL DE CONTRASEÑA -->
+            <div id="password-modal" class="modal hidden">
+                <div class="modal-content cute-modal">
+                    <h3>Chat Bloqueado</h3>
+                    <p>Ingresa la palabra clave de la novela para desbloquear esta conversación:</p>
+                    <input type="text" id="novel-password" placeholder="Escribe la clave aquí...">
+                    <button onclick="checkPassword()" class="btn-primary">Desbloquear</button>
+                    <button onclick="closeModal('password-modal')" class="btn-secondary">Cancelar</button>
+                    <p class="hint-text">Pista: Lo que Valentina quería que algún día se supiera (ej: <em>verdad</em>)</p>
+                    <p id="error-msg" class="error-msg hidden">Clave incorrecta. Intenta con "verdad".</p>
+                </div>
+            </div>
+
+            <!-- MODAL DE RECUPERACIÓN -->
+            <div id="recover-modal" class="modal hidden">
+                <div class="modal-content cute-modal">
+                    <h3>¿Recuperar archivo?</h3>
+                    <p id="recover-text"></p>
+                    <button onclick="doRecover()" class="btn-primary">RECUPERAR</button>
+                    <button onclick="closeModal('recover-modal')" class="btn-secondary">Cancelar</button>
+                </div>
+            </div>
+
+            <!-- MODAL DE NOTIFICACIÓN FINAL -->
+            <div id="evidencia-modal" class="modal hidden">
+                <div class="modal-content cute-modal special-modal">
+                    <h3>ATENCIÓN</h3>
+                    <p><strong>Hay una evidencia que todavía no has visto.</strong><br><br>Revisa la carpeta <strong>NO_BORRAR</strong> dentro de la app de <strong>Archivos</strong>.</p>
+                    <button onclick="closeModal('evidencia-modal'); openApp('archivos');" class="btn-primary">Ir a Archivos</button>
+                    <button onclick="closeModal('evidencia-modal')" class="btn-secondary">Cerrar</button>
+                </div>
+            </div>
+
+            <!-- MODAL GUÍA RÁPIDA / EXPEDIENTE -->
+            <div id="guide-modal" class="modal hidden">
+                <div class="modal-content cute-modal media-viewer-box">
+                    <h3>EXPEDIENTE V-021 · Guía Rápida</h3>
+                    <div class="media-body-content" style="text-align:left; font-size:15px; line-height:1.35;">
+                        <p style="margin-top:0;"><strong>Tu misión:</strong> Tienes en tus manos el celular de Valentina congelado a las <strong>11:47 p. m.</strong> Explora sus aplicaciones para reconstruir las 7 evidencias del caso:</p>
+                        <ul class="guide-checklist">
+                            <li id="chk-1">□ <strong>1. Galería:</strong> Revisa las 8 fotos y capturas del acoso.</li>
+                            <li id="chk-2">□ <strong>2. Videos:</strong> Reproduce los 3 videos guardados en Galería.</li>
+                            <li id="chk-3">□ <strong>3. Audios:</strong> Escucha las 4 notas de voz (especialmente el <em>Último audio</em>).</li>
+                            <li id="chk-4">□ <strong>4. Mensajes:</strong> Desbloquea el chat de <em>Número desconocido</em> (Clave: <strong>verdad</strong>).</li>
+                            <li id="chk-5">□ <strong>5. Eliminados:</strong> Recupera los archivos borrados en la Papelera.</li>
+                            <li id="chk-6">□ <strong>6. Llamadas:</strong> Verifica qué ocurrió a las 11:47 p. m.</li>
+                            <li id="chk-7">□ <strong>7. Archivos (NO_BORRAR):</strong> Abre <em>cronologia.pdf</em> y <em>Evidencia_final.txt</em>.</li>
+                        </ul>
+                    </div>
+                    <button onclick="closeModal('guide-modal')" class="btn-primary">Continuar investigación</button>
+                </div>
+            </div>
+
+            <!-- MODAL VISOR DE GALERÍA / ARCHIVOS / VIDEOS -->
+            <div id="media-modal" class="modal hidden">
+                <div class="modal-content cute-modal media-viewer-box">
+                    <h3 id="media-title">Archivo</h3>
+                    <div id="media-body" class="media-body-content"></div>
+                    <button onclick="closeModal('media-modal')" class="btn-primary">Cerrar</button>
+                </div>
+            </div>
+
+        </div> <!-- Fin screen-wrapper -->
+        
+        <!-- BOTÓN HOME DEL TELÉFONO -->
+        <div class="phone-home-btn" onclick="goHome()" title="Volver al inicio"></div>
+    </div>
+    
+    <!-- ELEMENTOS DE AUDIO REALES SUBIDOS POR EL USUARIO -->
+    <audio id="audio-0" src="audios/audio3.mp3"></audio>
+    <audio id="audio-1" src="audios/audio2.mp3"></audio>
+    <audio id="audio-2" src="audios/audio1.mp3"></audio>
+    <audio id="audio-3" src="audios/audio4.mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
